@@ -9,7 +9,7 @@
 
     [ApiController]
     [Route("api/[controller]")]
-    public class CountriesController : ControllerBase
+    public class CountriesController : ApiController
     {
         private const string Code = "{code}";
         private readonly ICountryService countryService;
