@@ -2,8 +2,10 @@
 {
     using Application.Common;
     using Application.Countries.Services;
+    using MediatR;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using System.Reflection;
 
     public static class ApplicationConfiguration
     {
@@ -11,10 +13,10 @@
             this IServiceCollection services,
             IConfiguration configuration)
             => services
-                .AddServices()
                 .Configure<ApplicationSettings>(
                     configuration.GetSection(nameof(ApplicationSettings)),
-                    options => options.BindNonPublicProperties = true);
+                    options => options.BindNonPublicProperties = true)
+                .AddMediatR(Assembly.GetExecutingAssembly());
 
         private static IServiceCollection AddServices(this IServiceCollection services)
             => services
