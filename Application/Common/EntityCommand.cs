@@ -2,15 +2,15 @@
 {
     public class EntityCommand<TId>
     {
-        public TId Id { get; set; } = default!;
+        public TId CountryCode { get; set; } = default!;
     }
 
     public static class EntityCommandExtensions
     {
-        public static TCommand SetId<TCommand, TId>(this TCommand command, TId id)
+        public static TCommand SetCode<TCommand, TId>(this TCommand command, TId code)
             where TCommand : EntityCommand<TId>
         {
-            command.Id = id;
+            command.CountryCode = code;
             return command;
         }
     }

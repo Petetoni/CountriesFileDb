@@ -1,5 +1,6 @@
 ﻿namespace Web.Features
 {
+    using Application.Countries.Commands;
     using Application.Countries.Exceptions;
     using Application.Countries.Models;
     using Application.Countries.Queries;
@@ -15,8 +16,9 @@
         private const string Code = "{id}";
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetailsCountryOutputModel>>> GetAll()
-            => await this.Send(null);
+        public async Task<ActionResult<IEnumerable<DetailsCountryOutputModel>>> GetAll(
+            DetailsAllCountriesQuery query)
+            => await this.Send(query);
 
         [HttpGet]
         [Route(Code)]
@@ -24,12 +26,9 @@
             [FromRoute] DetailsCountryQuery query)
             => await this.Send(query);
 
-        //[HttpPost]
-        //public async Task<ActionResult<CreateCountryOutputModel>> Post(CreateCountryInputModel model)
-        //    => Created(
-        //        nameof(this.Post),
-        //        await countryService.CreateCountry(
-        //            model.CountryName, 
-        //            model.CountryCode));
+        [HttpPost]
+        public async Task<ActionResult<CreateCountryOutputModel>> Post(
+            CreateCountryCommand command)
+            => await this.Send(command);
     }
 }

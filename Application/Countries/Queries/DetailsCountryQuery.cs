@@ -26,11 +26,11 @@
                 CancellationToken cancellationToken)
             {
                 var country = await this.countryRepository.FindByCode(
-                    request.Id,
+                    request.CountryCode,
                     cancellationToken);
                 if (country == null)
                 {
-                    return null;
+                    throw new CountryNotFoundException(request.CountryCode);
                 }
 
                 return new DetailsCountryOutputModel(country.Name, country.Code);
