@@ -110,7 +110,7 @@
             var countryCode = "XX";
 
             // ACT
-            Func<Task> act = () => GetCountriesController().Post(
+            Task act() => GetCountriesController().Post(
                 new CreateCountryInputModel(countryName, countryCode));
 
             // ASSERT

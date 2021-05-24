@@ -1,5 +1,6 @@
 ﻿namespace Infraestructure.Countries.Persistence.Repositories
 {
+    using Domain.Common;
     using Domain.Countries.Models;
     using Domain.Countries.Repositories;
     using Microsoft.EntityFrameworkCore;
@@ -26,13 +27,12 @@
         }
 
         public async Task<Country> FindByCode(
-            string code, 
+            Specification<Country> specification, 
             CancellationToken cancellationToken = default)
             => await this
                 .All()
-                .FirstOrDefaultAsync(c => 
-                    c.Code.Equals(code, System.StringComparison.InvariantCultureIgnoreCase), 
-                    cancellationToken);
+                .Where(specification)
+                .SingleOrDefaultAsync(cancellationToken);
 
         public async Task<IEnumerable<Country>> FindAll(CancellationToken cancellationToken = default)
             => await this

@@ -3,7 +3,10 @@
     using Application.Common;
     using Application.Countries.Exceptions;
     using Application.Countries.Models;
+    using Domain.Common;
+    using Domain.Countries.Models;
     using Domain.Countries.Repositories;
+    using Domain.Countries.Specifications;
     using MediatR;
     using System.Threading;
     using System.Threading.Tasks;
@@ -25,8 +28,9 @@
                 DetailsCountryQuery request,
                 CancellationToken cancellationToken)
             {
+                Specification<Country> specification = new CountryByCodeSpecification(request.CountryCode);
                 var country = await this.countryRepository.FindByCode(
-                    request.CountryCode,
+                    specification,
                     cancellationToken);
                 if (country == null)
                 {

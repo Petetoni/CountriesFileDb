@@ -2,8 +2,11 @@
 {
     using Application.Countries.Exceptions;
     using Application.Countries.Models;
+    using Domain.Common;
     using Domain.Countries.Factories;
+    using Domain.Countries.Models;
     using Domain.Countries.Repositories;
+    using Domain.Countries.Specifications;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -46,7 +49,8 @@
 
         public async Task<DetailsCountryOutputModel> GetCountry(string code)
         {
-            var country = await countryRepository.FindByCode(code);
+            Specification<Country> specification = new CountryByCodeSpecification(code);
+            var country = await countryRepository.FindByCode(specification);
             if (country == null)
             {
                 throw new CountryNotFoundException(code);

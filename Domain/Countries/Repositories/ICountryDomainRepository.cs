@@ -8,7 +8,9 @@
 
     public interface ICountryDomainRepository : IDomainRepository<Country>
     {
-        Task<Country> FindByCode(string code, CancellationToken cancellationToken = default);
+        Task<Country> FindByCode(
+            Specification<Country> specification, 
+            CancellationToken cancellationToken = default);
 
         Task<IEnumerable<Country>> FindAll(CancellationToken cancellationToken = default);
     }

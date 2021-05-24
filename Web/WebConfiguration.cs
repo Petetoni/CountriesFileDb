@@ -30,7 +30,7 @@
                 {
                     error = baseDomainException.Error;
                 }
-                var response = new { error = error };
+                var response = new { error };
                 await context.Response.WriteAsJsonAsync(response);
             }));
 

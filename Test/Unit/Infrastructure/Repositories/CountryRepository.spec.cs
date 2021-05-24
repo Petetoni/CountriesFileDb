@@ -1,4 +1,5 @@
 ﻿using Domain.Countries.Models;
+using Domain.Countries.Specifications;
 using Infraestructure.Countries.Persistence;
 using Infraestructure.Countries.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,8 @@ namespace Test.Unit.Infrastructure.Repositories
 
             // Act
             var countryRepository = new CountryRepository(dbContextMock.Object);
-            var country = await countryRepository.FindByCode("TST12");
+            var countryCodeSpecification = new CountryByCodeSpecification("TST12");
+            var country = await countryRepository.FindByCode(countryCodeSpecification);
 
             // Assert
             Assert.Null(country);
@@ -42,7 +44,8 @@ namespace Test.Unit.Infrastructure.Repositories
 
             // Act
             var countryRepository = new CountryRepository(dbContextMock.Object);
-            var country = await countryRepository.FindByCode("TST1");
+            var countryCodeSpecification = new CountryByCodeSpecification("TST1");
+            var country = await countryRepository.FindByCode(countryCodeSpecification);
 
             // Assert
             Assert.NotNull(country);
